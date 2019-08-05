@@ -4,7 +4,7 @@ buildscript {
     ext.kotlin_version = '1.3.41'
     // Architecture
     ext.lifecycle_version = "2.0.0"
-    ext.room_version = "2.1.0-beta01"
+    ext.room_version = "2.2.0-alpha01"
     ext.nav_version = "1.0.0"
 
     repositories {
