@@ -3,4 +3,5 @@
 
 ## 概要
 
-- ToDoアプリ
+- todo mvcライクなToDoアプリ
+- http://todomvc.com
