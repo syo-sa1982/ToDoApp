@@ -94,6 +94,18 @@ dependencies {
     implementation "androidx.room:room-rxjava2:$room_version"
     implementation "android.arch.navigation:navigation-fragment:$nav_version" // use -ktx for Kotlin
     implementation "android.arch.navigation:navigation-ui:$nav_version" // use -ktx for Kotlin
+    // DI
+    implementation "org.koin:koin-androidx-scope:$koin_version"
+    implementation "org.koin:koin-androidx-viewmodel:$koin_version"
+    // UI
+    implementation "com.xwray:groupie:$groupie_version"
+    implementation "com.xwray:groupie-databinding:$groupie_version"
+    implementation "com.xwray:groupie-kotlin-android-extensions:$groupie_version"
+    // Reactive
+    implementation "io.reactivex.rxjava2:rxjava:2.2.9"
+    implementation "io.reactivex.rxjava2:rxandroid:2.1.1"
+    implementation "io.reactivex.rxjava2:rxkotlin:2.3.0"
+
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
