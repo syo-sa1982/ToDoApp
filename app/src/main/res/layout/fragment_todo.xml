@@ -1,0 +1,15 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        tools:context="com.syousa1982.todoapp.presentation.TodoFragment">
+    <FrameLayout android:layout_width="match_parent"
+                 android:layout_height="match_parent">
+
+        <!-- TODO: Update blank fragment layout -->
+        <TextView
+                android:id="@+id/text1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/hello_blank_fragment"/>
+
+    </FrameLayout>
+</layout>
