@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
+import com.syousa1982.todoapp.constant.TodoCollectionKind
 import com.syousa1982.todoapp.databinding.FragmentTodoCollectionBinding
 
 
@@ -32,20 +33,16 @@ class TodoCollectionFragment : Fragment() {
     }
 
 }
-const val ARG_OBJECT = "object"
 
 class CollectionPagerAdapter(fm: FragmentManager) : FragmentStatePagerAdapter(fm) {
     override fun getCount(): Int = 3
 
     override fun getItem(position: Int): Fragment {
-        val fragment = TodoFragment()
-        fragment.arguments = Bundle().apply {
-            putInt(ARG_OBJECT, position + 1)
-        }
-        return fragment
+        return TodoFragment.newInstance(position)
     }
 
     override fun getPageTitle(position: Int): CharSequence? {
-        return "OBJECT ${position + 1}"
+        val tabKind = TodoCollectionKind.from(position)
+        return tabKind.getTitle()
     }
 }

@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.syousa1982.todoapp.constant.TodoCollectionKind
 import com.syousa1982.todoapp.databinding.FragmentTodoBinding
 
 
@@ -23,9 +24,24 @@ class TodoFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        arguments?.takeIf { it.containsKey(ARG_OBJECT) }?.apply {
-            binding.text1.text = getInt(ARG_OBJECT).toString()
+        arguments?.takeIf { it.containsKey(BUNDLE_POSITION) }?.apply {
+            val tabKind = TodoCollectionKind.from(getInt(BUNDLE_POSITION))
+            binding.text1.text = tabKind.getTitle()
         }
 
+    }
+
+    companion object {
+
+        /**
+         * Emailを保持するBundleID
+         */
+        private const val BUNDLE_POSITION = "com.syousa1982.todoapp.presentation.TodoFragment.BUNDLE_POSITION"
+
+        fun newInstance(position: Int) = TodoFragment().apply {
+            arguments = Bundle().apply {
+                putInt(BUNDLE_POSITION, position)
+            }
+        }
     }
 }
