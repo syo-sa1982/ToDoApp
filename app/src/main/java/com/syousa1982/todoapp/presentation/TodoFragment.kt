@@ -6,8 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.syousa1982.todoapp.constant.TodoCollectionKind
 import com.syousa1982.todoapp.databinding.FragmentTodoBinding
+import com.syousa1982.todoapp.util.extention.observe
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 
 /**
@@ -18,17 +19,20 @@ class TodoFragment : Fragment() {
 
     private lateinit var binding: FragmentTodoBinding
 
+    private val viewModel by sharedViewModel<TodoViewModel>()
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentTodoBinding.inflate(inflater, container, false)
+        lifecycle.addObserver(viewModel)
+        binding.text1.text = "TodoFragment"
+        bindOutput(binding, viewModel)
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        arguments?.takeIf { it.containsKey(BUNDLE_POSITION) }?.apply {
-            val tabKind = TodoCollectionKind.from(getInt(BUNDLE_POSITION))
-            binding.text1.text = tabKind.getTitle()
-        }
+    private fun bindOutput(binding: FragmentTodoBinding, viewModel: TodoViewModel) {
+        viewModel.tasks.observe(this){
 
+        }
     }
 
     companion object {
