@@ -30,12 +30,24 @@ interface ITodoUseCase {
      */
     fun getCompletedTasks(): Flowable<Result<List<Task>>>
 
+    /**
+     * タスク作成
+     */
     fun addTask(name: String): Flowable<Result<Boolean>>
 
+    /**
+     * タスクを更新
+     */
     fun updateTask(task: Task): Flowable<Result<Boolean>>
 
+    /**
+     * 指定したタスクを削除
+     */
     fun removeTask(task: Task): Flowable<Result<Boolean>>
 
+    /**
+     * 完了タスクを削除
+     */
     fun removeCompletedTasks(): Flowable<Result<Boolean>>
 }
 
