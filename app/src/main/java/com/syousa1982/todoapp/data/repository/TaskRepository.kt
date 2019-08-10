@@ -2,6 +2,7 @@ package com.syousa1982.todoapp.data.repository
 
 import com.syousa1982.todoapp.data.db.dao.TaskDao
 import com.syousa1982.todoapp.data.db.entity.TaskEntity
+import com.syousa1982.todoapp.domain.model.Task
 import io.reactivex.Single
 
 
@@ -23,9 +24,9 @@ interface ITaskRepository {
     /**
      * タスクを更新
      *
-     * @param tasks
+     * @param status
      */
-    fun updateTasksFromDB(tasks: List<TaskEntity>): Single<Int>
+    fun updateTasksByStatusFromDB(status: Task.Status): Single<Int>
     /**
      * タスク削除
      *
@@ -34,25 +35,25 @@ interface ITaskRepository {
     fun deleteTaskFromDB(tasks: TaskEntity): Single<Int>
 
     /**
-     * タスクを複数削除
+     * 指定されたステータスのタスクを複数削除
      *
-     * @param tasks
+     * @param status
      */
-    fun deleteTasksFromDB(tasks: List<TaskEntity>): Single<Int>
+    fun deleteTasksByStatusFromDB(status: Task.Status): Single<Int>
 
 
     /**
-     * タスクを無条件に取得
+     * タスクを取得
      */
     fun loadTasksFromDB(): Single<List<TaskEntity>>
 
 
     /**
-     * タスクを無条件に取得
+     * 指定されたステータスのタスクを取得
      *
      * @param status
      */
-    fun loadTasksByStatusFromDB(status: String): Single<List<TaskEntity>>
+    fun loadTasksByStatusFromDB(status: Task.Status): Single<List<TaskEntity>>
 }
 
 class TaskRepository(private val dao: TaskDao) : ITaskRepository {
@@ -64,23 +65,23 @@ class TaskRepository(private val dao: TaskDao) : ITaskRepository {
         return dao.updateTask(task)
     }
 
-    override fun updateTasksFromDB(tasks: List<TaskEntity>): Single<Int> {
-        return dao.updateTasks(tasks)
+    override fun updateTasksByStatusFromDB(status: Task.Status): Single<Int> {
+        return dao.updateAllTasksStatus(status.value)
     }
 
     override fun deleteTaskFromDB(tasks: TaskEntity): Single<Int> {
         return dao.deleteTask(tasks)
     }
 
-    override fun deleteTasksFromDB(tasks: List<TaskEntity>): Single<Int> {
-        return dao.deleteTasks(tasks)
+    override fun deleteTasksByStatusFromDB(status: Task.Status): Single<Int> {
+        return dao.deleteTasksByStatus(status.value)
     }
 
     override fun loadTasksFromDB(): Single<List<TaskEntity>> {
         return dao.loadTasks()
     }
 
-    override fun loadTasksByStatusFromDB(status: String): Single<List<TaskEntity>> {
-        return dao.loadTasksByStatus(status)
+    override fun loadTasksByStatusFromDB(status: Task.Status): Single<List<TaskEntity>> {
+        return dao.loadTasksByStatus(status.value)
     }
 }

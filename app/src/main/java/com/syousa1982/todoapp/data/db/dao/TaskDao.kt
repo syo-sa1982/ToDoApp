@@ -25,10 +25,11 @@ interface TaskDao {
     /**
      * タスクを複数更新
      *
-     * @param tasks
+     * @param status
      */
-    @Update
-    fun updateTasks(tasks: List<TaskEntity>): Single<Int>
+    @Transaction
+    @Query("UPDATE tasks set status = :status")
+    fun updateAllTasksStatus(status: String): Single<Int>
 
     /**
      * タスク削除
@@ -39,17 +40,17 @@ interface TaskDao {
     fun deleteTask(tasks: TaskEntity): Single<Int>
 
     /**
-     * タスクを複数削除
+     * 指定されたステータスのタスクを複数削除
      *
-     * @param tasks
+     * @param status
      */
-    @Delete
-    fun deleteTasks(tasks: List<TaskEntity>): Single<Int>
+    @Transaction
+    @Query("DELETE FROM tasks WHERE status = :status")
+    fun deleteTasksByStatus(status: String): Single<Int>
 
     /**
      * タスクを無条件に取得
      */
-    @Transaction
     @Query("SELECT * FROM tasks")
     fun loadTasks(): Single<List<TaskEntity>>
 
@@ -58,7 +59,6 @@ interface TaskDao {
      *
      * @param status
      */
-    @Transaction
     @Query("SELECT * FROM tasks WHERE status = :status")
     fun loadTasksByStatus(status: String): Single<List<TaskEntity>>
 
