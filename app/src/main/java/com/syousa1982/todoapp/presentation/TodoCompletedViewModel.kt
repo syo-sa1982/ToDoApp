@@ -11,8 +11,7 @@ import com.syousa1982.todoapp.util.extention.default
 import io.reactivex.rxkotlin.addTo
 import io.reactivex.rxkotlin.subscribeBy
 
-class TodoViewModel(private val useCase: ITodoUseCase) : BaseViewModel() {
-
+class TodoCompletedViewModel(private val useCase: ITodoUseCase) : BaseViewModel() {
     /**
      * タスクリスト
      */
@@ -72,7 +71,7 @@ class TodoViewModel(private val useCase: ITodoUseCase) : BaseViewModel() {
     }
 
     fun getTasks() {
-        useCase.getTasks().subscribeBy(
+        useCase.getCompletedTasks().subscribeBy(
             onNext = { tasks.value = it },
             onError = { e -> Log.e(className(), "エラー発生", e) }
         ).addTo(disposable)

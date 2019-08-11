@@ -6,8 +6,7 @@ import com.syousa1982.todoapp.data.repository.ITaskRepository
 import com.syousa1982.todoapp.data.repository.TaskRepository
 import com.syousa1982.todoapp.domain.usecase.ITodoUseCase
 import com.syousa1982.todoapp.domain.usecase.TodoUseCase
-import com.syousa1982.todoapp.presentation.TodoCollectionViewModel
-import com.syousa1982.todoapp.presentation.TodoViewModel
+import com.syousa1982.todoapp.presentation.*
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
@@ -16,6 +15,8 @@ object AppModule {
     val instance = module {
 
         viewModel { TodoViewModel(get()) }
+        viewModel { TodoActiveViewModel(get()) }
+        viewModel { TodoCompletedViewModel(get()) }
         viewModel { TodoCollectionViewModel(get()) }
 
         // region Domain Layer

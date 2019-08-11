@@ -2,6 +2,7 @@ package com.syousa1982.todoapp.util.extention
 
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.KeyEvent
 import android.widget.EditText
 
 /**
@@ -23,4 +24,15 @@ fun EditText.setOnChangedTextListener(onChangedTextListener: (String) -> Unit) {
             onChangedTextListener.invoke(s.toString())
         }
     })
+}
+
+
+fun EditText.setOnEnterKeyListener(onEnterTextListener: (String) -> Unit) {
+    setOnKeyListener { v, keyCode, event ->
+        if (event.action == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_ENTER) {
+            onEnterTextListener.invoke((v as EditText).text.toString())
+            return@setOnKeyListener true
+        }
+        return@setOnKeyListener false
+    }
 }

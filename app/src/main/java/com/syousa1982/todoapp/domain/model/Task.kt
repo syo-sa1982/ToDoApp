@@ -14,6 +14,14 @@ data class Task(
 ) {
     enum class Status(val value: String) {
         ACTIVE("active"),
-        COMPLETE("complete")
+        COMPLETE("complete");
+
+        companion object {
+
+            fun changeStatus(status: Status): Status = when (status) {
+                ACTIVE -> COMPLETE
+                COMPLETE -> ACTIVE
+            }
+        }
     }
 }

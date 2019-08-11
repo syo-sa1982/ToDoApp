@@ -68,6 +68,7 @@ class CollectionPagerAdapter(fm: FragmentManager) : FragmentStatePagerAdapter(fm
     override fun getCount(): Int = 3
 
     override fun getItem(position: Int): Fragment {
+        Log.d(className(), "position is $position")
         val fragment = when (position) {
             TodoCollectionKind.ALL.value -> TodoFragment()
             TodoCollectionKind.ACTIVE.value -> TodoActiveFragment()
