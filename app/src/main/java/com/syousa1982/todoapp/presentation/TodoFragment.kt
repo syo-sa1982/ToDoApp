@@ -15,7 +15,6 @@ import com.syousa1982.todoapp.domain.Result
 import com.syousa1982.todoapp.presentation.item.TaskItem
 import com.syousa1982.todoapp.util.extention.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
-import java.lang.IllegalStateException
 
 
 /**
@@ -31,19 +30,12 @@ class TodoFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentTodoBinding.inflate(inflater, container, false)
         lifecycle.addObserver(viewModel)
-//        arguments?.takeIf { it.containsKey(BUNDLE_POSITION) }?.apply {
-//            viewModel.kind.value = TodoCollectionKind.from(getInt(BUNDLE_POSITION))
-//            val kind = viewModel.kind.value ?: throw IllegalStateException("見てるタブが不正")
-//            binding.text1.text = kind.getTitle()
-//            viewModel.getTasksByKind(kind)
-//        }
         bindOutput(binding, viewModel)
         bindRecyclerView(binding, viewModel)
         return binding.root
     }
 
     private fun bindOutput(binding: FragmentTodoBinding, viewModel: TodoViewModel) {
-
         viewModel.updateResult.observe(this) {
             val actionName = "タスク更新"
             when (it) {
@@ -53,7 +45,6 @@ class TodoFragment : Fragment() {
                 is Result.Success -> {
                     Log.d(className(), "$actionName 完了")
                     viewModel.getTasks()
-                    viewModel.updateResult.value = null
                 }
                 is Result.Failure -> {
                     Log.d(className(), "$actionName 失敗", it.e)
@@ -118,20 +109,6 @@ class TodoFragment : Fragment() {
     private fun showErrorMessage(actionName: String) {
         view?.let {
             Snackbar.make(it, "$actionName 失敗しました。", Snackbar.LENGTH_LONG).show()
-        }
-    }
-
-    companion object {
-
-        /**
-         * Emailを保持するBundleID
-         */
-        private const val BUNDLE_POSITION = "com.syousa1982.todoapp.presentation.TodoFragment.BUNDLE_POSITION"
-
-        fun newInstance(position: Int) = TodoFragment().apply {
-            arguments = Bundle().apply {
-                putInt(BUNDLE_POSITION, position)
-            }
         }
     }
 }

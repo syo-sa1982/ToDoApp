@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
 import androidx.viewpager.widget.PagerAdapter
+import androidx.viewpager.widget.ViewPager
 import com.syousa1982.todoapp.constant.TodoCollectionKind
 import com.syousa1982.todoapp.databinding.FragmentTodoCollectionBinding
 import com.syousa1982.todoapp.domain.Result
@@ -37,6 +38,13 @@ class TodoCollectionFragment : Fragment() {
 
         collectionPagerAdapter = CollectionPagerAdapter(childFragmentManager)
         binding.pager.adapter = collectionPagerAdapter
+        binding.pager.offscreenPageLimit = 3
+        binding.pager.addOnPageChangeListener(object : ViewPager.SimpleOnPageChangeListener() {
+            override fun onPageSelected(position: Int) {
+                Log.d(className(), "onPageSelected position is $position")
+                collectionPagerAdapter.refresh()
+            }
+        })
         binding.tabLayout.setupWithViewPager(binding.pager)
         bindInput(binding, viewModel)
         return binding.root
@@ -76,8 +84,7 @@ class CollectionPagerAdapter(fm: FragmentManager) : FragmentStatePagerAdapter(fm
             else -> throw IllegalStateException("存在しない画面です")
         }
         fragments.add(fragment)
-//        fragments.add(TodoFragment.newInstance(position))
-        return fragments.last()
+        return fragment
     }
 
     override fun getItemPosition(`object`: Any): Int {

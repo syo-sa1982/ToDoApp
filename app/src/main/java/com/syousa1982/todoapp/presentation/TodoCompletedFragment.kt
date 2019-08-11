@@ -9,7 +9,6 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import com.google.android.material.snackbar.Snackbar
-import com.syousa1982.todoapp.databinding.FragmentTodoActiveBinding
 import com.syousa1982.todoapp.databinding.FragmentTodoCompletedBinding
 import com.syousa1982.todoapp.domain.Result
 import com.syousa1982.todoapp.presentation.item.TaskItem
