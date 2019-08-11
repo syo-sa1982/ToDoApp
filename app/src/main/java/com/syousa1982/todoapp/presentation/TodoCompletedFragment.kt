@@ -9,8 +9,7 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import com.google.android.material.snackbar.Snackbar
-import com.syousa1982.todoapp.constant.TodoCollectionKind
-import com.syousa1982.todoapp.databinding.FragmentTodoBinding
+import com.syousa1982.todoapp.databinding.FragmentTodoCompletedBinding
 import com.syousa1982.todoapp.domain.Result
 import com.syousa1982.todoapp.presentation.item.TaskItem
 import com.syousa1982.todoapp.util.extention.*
@@ -21,21 +20,23 @@ import org.koin.androidx.viewmodel.ext.android.sharedViewModel
  * A simple [Fragment] subclass.
  *
  */
-class TodoFragment : Fragment() {
+class TodoCompletedFragment : Fragment() {
 
-    private lateinit var binding: FragmentTodoBinding
+    private lateinit var binding: FragmentTodoCompletedBinding
 
-    private val viewModel by sharedViewModel<TodoViewModel>()
+    private val viewModel by sharedViewModel<TodoCompletedViewModel>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        binding = FragmentTodoBinding.inflate(inflater, container, false)
+        binding = FragmentTodoCompletedBinding.inflate(inflater, container, false)
         lifecycle.addObserver(viewModel)
         bindOutput(binding, viewModel)
         bindRecyclerView(binding, viewModel)
         return binding.root
     }
 
-    private fun bindOutput(binding: FragmentTodoBinding, viewModel: TodoViewModel) {
+
+    private fun bindOutput(binding: FragmentTodoCompletedBinding, viewModel: TodoCompletedViewModel) {
+
         viewModel.updateResult.observe(this) {
             val actionName = "タスク更新"
             when (it) {
@@ -45,6 +46,7 @@ class TodoFragment : Fragment() {
                 is Result.Success -> {
                     Log.d(className(), "$actionName 完了")
                     viewModel.getTasks()
+                    viewModel.updateResult.value = null
                 }
                 is Result.Failure -> {
                     Log.d(className(), "$actionName 失敗", it.e)
@@ -54,7 +56,7 @@ class TodoFragment : Fragment() {
         }
     }
 
-    private fun bindRecyclerView(binding: FragmentTodoBinding, viewModel: TodoViewModel) {
+    private fun bindRecyclerView(binding: FragmentTodoCompletedBinding, viewModel: TodoCompletedViewModel) {
         // input
         binding.tasks.setGroupieAdapter()
         binding.tasks.setLinearLayoutManagerWithDivider()
@@ -111,4 +113,6 @@ class TodoFragment : Fragment() {
             Snackbar.make(it, "$actionName 失敗しました。", Snackbar.LENGTH_LONG).show()
         }
     }
+
+
 }
