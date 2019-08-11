@@ -1,11 +1,13 @@
 package com.syousa1982.todoapp.presentation
 
 
+import android.content.Context.INPUT_METHOD_SERVICE
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
@@ -61,12 +63,23 @@ class TodoCollectionFragment : Fragment() {
             when (it) {
                 is Result.Progress -> Log.d(className(), "書き込み中")
                 is Result.Success -> {
+                    binding.inputText.setText("")
+                    viewModel.taskName.value = null
+                    hideKeyboard()
                     collectionPagerAdapter.refresh()
                     Log.d(className(), "書き込み成功")
                 }
                 is Result.Failure -> Log.e(className(), "書き込み失敗 ${it.e}")
 
             }
+        }
+    }
+
+    private fun hideKeyboard() {
+        val view = requireActivity().currentFocus
+        if (view != null) {
+            val manager = requireActivity().getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+            manager.hideSoftInputFromWindow(view.windowToken, 0)
         }
     }
 }
