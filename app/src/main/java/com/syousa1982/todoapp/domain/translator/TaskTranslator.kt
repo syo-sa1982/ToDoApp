@@ -8,7 +8,7 @@ object TaskTranslator {
     fun toModel(entity: TaskEntity): Task = Task(
         entity.id,
         entity.name,
-        Task.Status.valueOf(entity.status)
+        Task.Status.valueOf(entity.status.toUpperCase())
     )
 
     fun toModels(entities: List<TaskEntity>): List<Task> = entities.map {
