@@ -1,15 +1,28 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        tools:context="com.syousa1982.todoapp.presentation.TodoActiveFragment">
-    <FrameLayout android:layout_width="match_parent"
-                 android:layout_height="match_parent">
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.syousa1982.todoapp.presentation.TodoActiveFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
         <!-- TODO: Update blank fragment layout -->
         <TextView
-                android:id="@+id/text1"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="@string/hello_blank_fragment"/>
+            android:id="@+id/text1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/hello_blank_fragment" />
 
-    </FrameLayout>
+        <TextView
+            android:id="@+id/text2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/hello_blank_fragment" />
+
+        <!--<androidx.recyclerview.widget.RecyclerView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"/>-->
+
+    </LinearLayout>
 </layout>
